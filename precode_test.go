@@ -7,7 +7,7 @@ import (
     "testing"
 
     "github.com/stretchr/testify/assert"
-//    "github.com/stretchr/testify/require"
+    "github.com/stretchr/testify/require"
 )
 
 func TestMainHandlerServerRespondsCorrectly(t *testing.T) {
@@ -21,7 +21,7 @@ func TestMainHandlerServerRespondsCorrectly(t *testing.T) {
     body := responseRecorder.Body.String()
     status := responseRecorder.Code
 
-    assert.Equalf(t, http.StatusOK, status, "expected status code: %d, got %d", http.StatusOK, status)
+    require.Equalf(t, http.StatusOK, status, "expected status code: %d, got %d", http.StatusOK, status)
     assert.NotEmptyf(t, body, "expected not empty responce body")
 
 }
@@ -40,7 +40,7 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
     bodyList := strings.Split(body, ",")
     status := responseRecorder.Code
 
-    assert.Equalf(t, http.StatusOK, status, "expected status code: %d, got %d", http.StatusOK, status)
+    require.Equalf(t, http.StatusOK, status, "expected status code: %d, got %d", http.StatusOK, status)
     assert.Lenf(t, bodyList, totalCount,
         "expected caffe count: %d, got %d", totalCount, len(bodyList))
 
@@ -59,7 +59,7 @@ func TestMainHandlerWhenUnknownCountry(t *testing.T) {
     body := responseRecorder.Body.String()
     status := responseRecorder.Code
 
-    assert.Equalf(t, http.StatusBadRequest, status, "expected status code: %d, got %d", http.StatusBadRequest, status)
+    require.Equalf(t, http.StatusBadRequest, status, "expected status code: %d, got %d", http.StatusBadRequest, status)
     assert.Equalf(t, wrongCity, body, "expected server's message: '%s', got '%s'", wrongCity, body)
 
 }
